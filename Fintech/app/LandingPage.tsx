@@ -8,18 +8,18 @@ export default function LandingPage() {
       {/* Header */}
       <View style={styles.header}>
         <Image
-          source={require("../assets/icons/cloud-icon.png")}
+          source={require("../assets/images/cloud.png")}
           style={styles.logo}
         />
         <View style={styles.headerIcons}>
           <TouchableOpacity>
-            <Image source={require("../assets/icons/search-icon.png")} style={styles.icon} />
+            <Image source={require("../assets/search-icon.png")} style={styles.icon} />
           </TouchableOpacity>
           <TouchableOpacity>
-            <Image source={require("../assets/icons/help-icon.png")} style={styles.icon} />
+            <Image source={require("../assets/help-icon.png")} style={styles.icon} />
           </TouchableOpacity>
           <TouchableOpacity>
-            <Image source={require("../assets/icons/profile-icon.png")} style={styles.icon} />
+            <Image source={require("../assets/user-icon.png")} style={styles.icon} />
           </TouchableOpacity>
         </View>
       </View>
@@ -32,10 +32,10 @@ export default function LandingPage() {
 
       {/* Feature Cards */}
       <View style={styles.features}>
-        <FeatureCard title="Track expenses" image={require("../assets/icons/track-icon.png")} />
-        <FeatureCard title="Set budgets" image={require("../assets/icons/budget-icon.png")} />
-        <FeatureCard title="Analyze spendings" image={require("../assets/icons/analyze-icon.png")} />
-        <FeatureCard title="Build wealth" image={require("../assets/icons/wealth-icon.png")} />
+        <FeatureCard title="Track expenses" image={require("../assets/TrackExpenses.png")} />
+        <FeatureCard title="Set budgets" image={require("../assets/SetBudget.png")} />
+        <FeatureCard title="Analyze spendings" image={require("../assets/AnalyzeSpending.png")} />
+        <FeatureCard title="Build wealth" image={require("../assets/BuildWealth.png")} />
       </View>
 
       {/* Buttons */}
