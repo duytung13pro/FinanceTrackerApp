@@ -1,3 +1,7 @@
-import LandingPage from "./screens/LandingPage";
+import { Stack } from "expo-router";
+import LandingPage from "./LandingPage";
 
-<Stack.Screen name="LandingPage" component={LandingPage} />;
+<Stack>
+  <Stack.Screen name="LandingPage" options={{ title: 'Landing Page' }} />
+</Stack>;
+
