@@ -1,8 +1,17 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import FeatureCard from "../components/FeatureCard";
+import { RootStackParamList } from './types';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useNavigation } from '@react-navigation/native';
+
+// Define the typing for this component
+type IndexProps = NativeStackNavigationProp<RootStackParamList, 'Home'>;
 
 export default function Index() {
+  // Typing the navigation hook
+  const navigation = useNavigation<IndexProps>();  // Ensuring proper typing
+
   return (
     <View style={styles.container}>
       {/* Header */}
@@ -40,7 +49,10 @@ export default function Index() {
 
       {/* Buttons */}
       <View style={styles.buttons}>
-        <TouchableOpacity style={styles.registerButton}>
+        <TouchableOpacity 
+          style={styles.registerButton}
+          onPress={() => navigation.navigate("Register")}  
+        >
           <Text style={styles.buttonText}>Register</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.signInButton}>

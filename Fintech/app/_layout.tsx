@@ -1,11 +1,10 @@
-import { Stack, Slot } from "expo-router";
-import Header from "./Header";
+import { Stack } from 'expo-router';
 
-export default function Layout() {
-    return (
-        <>
-            <Header />
-            <Slot />
-        </>
-    );
+export default function RootLayout() {
+  return (
+    <Stack>
+      <Stack.Screen name="index" />
+      <Stack.Screen name="Register" />
+    </Stack>
+  );
 }
