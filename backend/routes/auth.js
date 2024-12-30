@@ -21,5 +21,7 @@ router.post("/register", async (req, res) => {
   }
 });
 
+router.post("/")
+
 // Export the router
 module.exports = router;

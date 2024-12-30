@@ -1,10 +1,12 @@
-import { Stack } from 'expo-router';
+import React from "react";
+import Header from "./Header";
+import { Slot } from "expo-router";
 
-export default function RootLayout() {
-  return (
-    <Stack>
-      <Stack.Screen name="index" />
-      <Stack.Screen name="Register" />
-    </Stack>
-  );
+export default function Layout() {
+    return (
+        <>
+            <Header />
+            <Slot />
+        </>
+    );
 }
