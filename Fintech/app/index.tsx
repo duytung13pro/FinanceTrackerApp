@@ -1,16 +1,22 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import FeatureCard from "../components/FeatureCard";
-import { RootStackParamList } from './types';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { useNavigation } from '@react-navigation/native';
+import { RootStackParamList } from "./types";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { useNavigation } from "@react-navigation/native";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { withLayoutContext } from "expo-router";
 
 // Define the typing for this component
-type IndexProps = NativeStackNavigationProp<RootStackParamList, 'Home'>;
+type IndexProps = NativeStackNavigationProp<RootStackParamList, "Home">;
 
 export default function Index() {
   // Typing the navigation hook
-  const navigation = useNavigation<IndexProps>();  // Ensuring proper typing
+  const navigation = useNavigation<IndexProps>(); // Ensuring proper typing
+
+  function testing() {
+    console.log(1);
+  }
 
   return (
     <View style={styles.container}>
@@ -22,13 +28,19 @@ export default function Index() {
         />
         <View style={styles.headerIcons}>
           <TouchableOpacity>
-            <Image source={require("@/assets/images/search-icon.png")} style={styles.icon} />
+            <Ionicons name="search" size={32} color="white" />
           </TouchableOpacity>
           <TouchableOpacity>
-            <Image source={require("@/assets/images/help-icon.png")} style={styles.icon} />
+            <Image
+              source={require("@/assets/images/help-icon.png")}
+              style={styles.icon}
+            />
           </TouchableOpacity>
           <TouchableOpacity>
-            <Image source={require("@/assets/images/user-icon.png")} style={styles.icon} />
+            <Image
+              source={require("@/assets/images/user-icon.png")}
+              style={styles.icon}
+            />
           </TouchableOpacity>
         </View>
       </View>
@@ -41,21 +53,40 @@ export default function Index() {
 
       {/* Feature Cards */}
       <View style={styles.features}>
-        <FeatureCard title="Track expenses" image={require("@/assets/images/TrackExpenses.png")} />
-        <FeatureCard title="Set budgets" image={require("@/assets/images/SetBudget.png")} />
-        <FeatureCard title="Analyze spendings" image={require("@/assets/images/AnalyzeSpending.png")} />
-        <FeatureCard title="Build wealth" image={require("@/assets/images/BuildWealth.png")} />
+        <FeatureCard
+          title="Track expenses"
+          image={require("@/assets/images/TrackExpenses.png")}
+          onclick={testing}
+        />
+        <FeatureCard
+          title="Set budgets"
+          image={require("@/assets/images/SetBudget.png")}
+          onclick={testing}
+        />
+        <FeatureCard
+          title="Analyze spendings"
+          image={require("@/assets/images/AnalyzeSpending.png")}
+          onclick={testing}
+        />
+        <FeatureCard
+          title="Build wealth"
+          image={require("@/assets/images/BuildWealth.png")}
+          onclick={testing}
+        />
       </View>
 
       {/* Buttons */}
       <View style={styles.buttons}>
-        <TouchableOpacity 
+        <TouchableOpacity
           style={styles.registerButton}
-          onPress={() => navigation.navigate("Register")}  
+          onPress={() => navigation.navigate("Register")}
         >
           <Text style={styles.buttonText}>Register</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.signInButton}>
+        <TouchableOpacity
+          style={styles.signInButton}
+          onPress={() => navigation.navigate("Login")} //Login
+        >
           <Text style={styles.buttonText}>Sign In</Text>
         </TouchableOpacity>
       </View>
