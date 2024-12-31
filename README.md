@@ -1,4 +1,4 @@
-##Financial Tracker App
+Financial Tracker App
 
 Welcome to the Financial Tracker App, a powerful tool designed to help you manage your finances efficiently and stay on top of your budget. This application allows you to track your income, expenses, and savings all in one place, making it easier to achieve your financial goals.
 
