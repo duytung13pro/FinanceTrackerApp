@@ -8,6 +8,12 @@ router.post("/register", async (req, res) => {
   try {
     const { username, email, password } = req.body;
 
+    // Check if the username already exists
+    const existingUser = await User.findOne({ username });
+    if (existingUser) {
+      return res.status(400).send("Username already exists. Please choose another.");
+    }
+
     // Hash the password for security
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -20,8 +26,6 @@ router.post("/register", async (req, res) => {
     res.status(500).send("Error registering user: " + error.message);
   }
 });
-
-router.post("/")
 
 // Export the router
 module.exports = router;
