@@ -3,6 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ActivityInd
 import axios from "axios";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from './types'; // Import RootStackParamList
+import { toast } from "react-toastify";
 
 // Type definition for navigation props in Register screen
 type RegisterProps = NativeStackScreenProps<RootStackParamList, "Register">;
@@ -15,26 +16,48 @@ const Register: React.FC<RegisterProps> = ({ navigation }) => {
 
   const handleRegister = async () => {
     if (!username || !email || !password) {
-      Alert.alert("Error", "Please fill in all fields");
+      toast.error("Please fill in all fields.");
       return;
     }
 
-    setIsLoading(true); // Show loading
+    setIsLoading(true);
+
     try {
       const response = await axios.post("http://localhost:3000/user/register", {
         username,
         email,
         password,
       });
-      console.log("Register Success")
-      Alert.alert("Success", response.data.message);
-      navigation.navigate("Home"); // Navigate back to Home screen
-    } catch (error: any) {
-      Alert.alert("Error", error.response?.data?.error || error.message || "Registration failed");
+
+      if (response.status === 201) {
+        toast.success(response.data.message);
+        setUsername("");
+        setEmail("");
+        setPassword("");
+        navigation.push("Home");
+      } else {
+        toast.error(response.data.message);
+      } 
+
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        if (error.response?.status === 401) {
+          // Handle the 401 error
+          toast.error("Username already exists. Please try a different one!");
+        } else if (error.response?.data?.error) {
+          toast.error(error.response.data.error);
+        } else {
+          toast.error("Error registering user!");
+        }
+      }
+    
+        
     } finally {
-      setIsLoading(false); // Hide loading
+      setIsLoading(false);
     }
   };
+  
+  
 
   return (
     <View style={styles.container}>

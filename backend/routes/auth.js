@@ -5,14 +5,14 @@ const bcrypt = require("bcrypt");
 
 // Register a new user
 router.post("/register", async (req, res) => {
-  try {
+
     const { username, email, password } = req.body;
 
-    // Check if the username already exists
-    const existingUser = await User.findOne({ username });
-    if (existingUser) {
-      return res.status(400).send("Username already exists. Please choose another.");
-    }
+    try {
+      const existingUser = await User.findOne({ username });
+      if (existingUser) {
+        return res.status(401).json({ error: "Username already exists" });
+      }
 
     // Hash the password for security
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -21,9 +21,9 @@ router.post("/register", async (req, res) => {
     const user = new User({ username, email, password: hashedPassword });
     await user.save();
 
-    res.status(201).send("User registered successfully!");
+    res.status(201).json({ message: "User registered successfully!" });
   } catch (error) {
-    res.status(500).send("Error registering user: " + error.message);
+    res.status(500).json({ error: "Error registering user: " + error.message });
   }
 });
 
