@@ -8,7 +8,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { withLayoutContext } from "expo-router";
 
 // Define the typing for this component
-type IndexProps = NativeStackNavigationProp<RootStackParamList, "Home">;
+type IndexProps = NativeStackNavigationProp<RootStackParamList, "index">;
 
 export default function Index() {
   // Typing the navigation hook
@@ -21,6 +21,7 @@ export default function Index() {
   return (
     <View style={styles.container}>
       {/* Header */}
+      {/*
       <View style={styles.header}>
         <Image
           source={require("@/assets/images/cloud.png")}
@@ -44,7 +45,7 @@ export default function Index() {
           </TouchableOpacity>
         </View>
       </View>
-
+      */}
       {/* Logo and Tagline */}
       <View style={styles.logoContainer}>
         <Text style={styles.appName}>YouFinance</Text>

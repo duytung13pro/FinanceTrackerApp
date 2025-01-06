@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ActivityIndicator } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ActivityIndicator } from "react-native";
 import axios from "axios";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { RootStackParamList } from './types'; // Import RootStackParamList
+import { useRouter } from 'expo-router';
 import { toast } from "react-toastify";
+import { NativeStackScreenProps } from "react-native-screens/lib/typescript/native-stack/types";
+import { RootStackParamList } from "./types";
 
 // Type definition for navigation props in Register screen
 type RegisterProps = NativeStackScreenProps<RootStackParamList, "Register">;
@@ -13,6 +14,7 @@ const Register: React.FC<RegisterProps> = ({ navigation }) => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const router = useRouter();
 
   const handleRegister = async () => {
     if (!username || !email || !password) {
@@ -30,11 +32,17 @@ const Register: React.FC<RegisterProps> = ({ navigation }) => {
       });
 
       if (response.status === 201) {
-        toast.success(response.data.message);
+        //toast.success(response.data.message);
+        toast.success(response.data.message, {
+          autoClose: 3000, 
+        });
         setUsername("");
         setEmail("");
         setPassword("");
-        navigation.push("Home");
+        setTimeout(() => {
+          router.replace("/");
+        }, 3500);
+
       } else {
         toast.error(response.data.message);
       } 
