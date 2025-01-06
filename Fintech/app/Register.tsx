@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ActivityIndicator } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ActivityIndicator } from "react-native";
 import axios from "axios";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { RootStackParamList } from './types'; // Import RootStackParamList
+import { useRouter } from 'expo-router';
+import { toast } from "react-toastify";
+import { NativeStackScreenProps } from "react-native-screens/lib/typescript/native-stack/types";
+import { RootStackParamList } from "./types";
 
 // Type definition for navigation props in Register screen
 type RegisterProps = NativeStackScreenProps<RootStackParamList, "Register">;
@@ -12,29 +14,58 @@ const Register: React.FC<RegisterProps> = ({ navigation }) => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const router = useRouter();
 
   const handleRegister = async () => {
     if (!username || !email || !password) {
-      Alert.alert("Error", "Please fill in all fields");
+      toast.error("Please fill in all fields.");
       return;
     }
 
-    setIsLoading(true); // Show loading
+    setIsLoading(true);
+
     try {
       const response = await axios.post("http://localhost:3000/user/register", {
         username,
         email,
         password,
       });
-      console.log("Register Success")
-      Alert.alert("Success", response.data.message);
-      navigation.navigate("Home"); // Navigate back to Home screen
-    } catch (error: any) {
-      Alert.alert("Error", error.response?.data?.error || error.message || "Registration failed");
+
+      if (response.status === 201) {
+        //toast.success(response.data.message);
+        toast.success(response.data.message, {
+          autoClose: 3000, 
+        });
+        setUsername("");
+        setEmail("");
+        setPassword("");
+        setTimeout(() => {
+          router.replace("/");
+        }, 3500);
+
+      } else {
+        toast.error(response.data.message);
+      } 
+
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        if (error.response?.status === 401) {
+          // Handle the 401 error
+          toast.error("Username already exists. Please try a different one!");
+        } else if (error.response?.data?.error) {
+          toast.error(error.response.data.error);
+        } else {
+          toast.error("Error registering user!");
+        }
+      }
+    
+        
     } finally {
-      setIsLoading(false); // Hide loading
+      setIsLoading(false);
     }
   };
+  
+  
 
   return (
     <View style={styles.container}>
