@@ -35,7 +35,7 @@ const Login: React.FC<LoginProps> = ({ navigation }) => {
       });
       console.log("Login Success");
       Alert.alert("Success", response.data.message);
-      navigation.navigate("Home"); // Navigate back to Home screen
+      navigation.navigate("index"); // Navigate back to Home screen
     } catch (error: any) {
       Alert.alert(
         "Error",
