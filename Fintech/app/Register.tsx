@@ -10,14 +10,15 @@ import { RootStackParamList } from "./types";
 type RegisterProps = NativeStackScreenProps<RootStackParamList, "Register">;
 
 const Register: React.FC<RegisterProps> = ({ navigation }) => {
-  const [username, setUsername] = useState<string>("");
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
 
   const handleRegister = async () => {
-    if (!username || !email || !password) {
+    if (!firstName || !lastName || !email || !password) {
       toast.error("Please fill in all fields.");
       return;
     }
@@ -26,7 +27,8 @@ const Register: React.FC<RegisterProps> = ({ navigation }) => {
 
     try {
       const response = await axios.post("http://localhost:3000/user/register", {
-        username,
+        firstName,
+        lastName,
         email,
         password,
       });
@@ -36,7 +38,8 @@ const Register: React.FC<RegisterProps> = ({ navigation }) => {
         toast.success(response.data.message, {
           autoClose: 3000, 
         });
-        setUsername("");
+        setFirstName("");
+        setLastName("");
         setEmail("");
         setPassword("");
         setTimeout(() => {
@@ -70,13 +73,22 @@ const Register: React.FC<RegisterProps> = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Register</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Username"
-        placeholderTextColor="#B0B8C1"
-        value={username}
-        onChangeText={setUsername}
-      />
+      <View style={styles.nameContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="First name"
+          placeholderTextColor="#B0B8C1"
+          value={firstName}
+          onChangeText={setFirstName}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Last name"
+          placeholderTextColor="#B0B8C1"
+          value={lastName}
+          onChangeText={setLastName}
+        />
+      </View>
       <TextInput
         style={styles.input}
         placeholder="Email"
@@ -105,6 +117,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#2E3A59",
     padding: 20,
     justifyContent: "center",
+    alignItems: "center",
   },
   title: {
     fontSize: 28,
@@ -113,18 +126,26 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: 20,
   },
+  nameContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: 400,
+    gap: 20,
+  },
   input: {
     backgroundColor: "#334B68",
     padding: 15,
     marginVertical: 10,
     borderRadius: 8,
     color: "#ffffff",
+    width: 400,
   },
   registerButton: {
     backgroundColor: "#1CA7EC",
     paddingVertical: 15,
     marginTop: 20,
     borderRadius: 8,
+    paddingHorizontal: 50,
   },
   buttonText: {
     color: "#ffffff",
