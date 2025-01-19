@@ -2,11 +2,11 @@ import { SimpleFaker, faker } from "@faker-js/faker";
 
 
 export type Transaction = {
-    type: string;
-    category: string;
-    amount: number;
-    date: string;
-    time: string;
+    type: string; // 'income' | 'expense'
+    category: string; // can be anything. Default: 'salary', 'groceries', 'rent', 'utilities'
+    amount: number; 
+    date: string; // '7/19/2005'
+    time: string; // '9:24:35 AM'
 }
 
 export type UserData = {
@@ -17,7 +17,7 @@ export type UserData = {
 }
 
 
-export const transactionTypes = ["income", "expense"];
+export const transactionTypes = ["income", "expense"]; 
 export const transactionCategories = ["salary", "groceries", "rent", "utilities"];
 
 
