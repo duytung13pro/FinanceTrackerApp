@@ -12,10 +12,15 @@ import { StyleSheet } from "react-native";
 import { min, range } from "lodash";
 import dayjs from 'dayjs'
 
-export default function Dashboard() {
-    let date = "2024-10-01";
-    let time = "19:00";
+import { NativeStackScreenProps } from "react-native-screens/lib/typescript/native-stack/types";
+import { RootStackParamList } from "./types";
+
+type DashboardProps = NativeStackScreenProps<RootStackParamList, "Register">;
+
+const Dashboard: React.FC<DashboardProps> = ({ navigation }) => {
+    
     let transactionsToDisplay: Transaction[] = users[0].transactions;
+    
 
     let minYear = 3000;
     let maxYear = 0;
@@ -158,3 +163,5 @@ export default function Dashboard() {
         </div>
     );
 }
+
+export default Dashboard;
