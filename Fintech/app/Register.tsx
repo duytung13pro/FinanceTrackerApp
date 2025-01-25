@@ -73,6 +73,9 @@ const Register: React.FC<RegisterProps> = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Register</Text>
+      <Text style={styles.subtitle}>
+        Welcome to the first step on the way to achieving financial freedom.
+      </Text>
       <View style={styles.nameContainer}>
         <TextInput
           style={styles.input}
@@ -125,6 +128,12 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     textAlign: "center",
     marginBottom: 20,
+  },
+  subtitle: {
+    fontSize: 16,
+    color: "#B0B8C1", // A lighter color for the subtitle
+    textAlign: "center",
+    marginBottom: 20, // Space below the subtitle
   },
   nameContainer: {
     flexDirection: "row",
