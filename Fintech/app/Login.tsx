@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "./types"; // Import RootStackParamList
 import { useRouter } from "expo-router";
+import { useAuth } from './AuthContext';
 
 // Type definition for navigation props in Login screen
 type LoginProps = NativeStackScreenProps<RootStackParamList, "Login">;
@@ -21,6 +22,7 @@ const Login: React.FC<LoginProps> = ({ navigation }) => {
     const [password, setPassword] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const router = useRouter()
+    const { login } = useAuth();
 
     const handleLogin = async () => {
         if (!email || !password) {
@@ -38,6 +40,7 @@ const Login: React.FC<LoginProps> = ({ navigation }) => {
                 }
             );
             toast.success(response.data.message);
+            login();
             router.navigate("/Dashboard");
         } catch (error: any) {
             toast.error(
